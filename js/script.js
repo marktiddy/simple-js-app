@@ -8,7 +8,7 @@ alert('Hello World!');
 var favouriteFood = 'Chocolate';
 document.write(favouriteFood);
 
-
+console.log('Here we go ${favouriteFood}');
 
 //Some of my testing code from checking variables etc in the console. Will delete later.
 /*
