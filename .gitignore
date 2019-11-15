@@ -1,1 +1,2 @@
-.DS_Score
+#Ignore all local apple files
+*.DS_Score
