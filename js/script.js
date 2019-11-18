@@ -12,10 +12,11 @@ var repository = [
   }
 ];
 
-for (var i = 0; i <= repository.length; i++) {
-  if (repository[i].height > 5) {
-    document.write(`<p><strong>${repository[i].name}</strong> (height: ${repository[i].height}) - <i>WOW! That's a tall Pokémon</i><br></p>`);
+repository.forEach(function (pokemon) {
+  if (pokemon.height > 5) {
+    document.write(`<p><strong>${pokemon.name}</strong> (height: ${pokemon.height}) - <i>WOW! That's a tall Pokémon</i><br></p>`);
   } else {
-    document.write(`<p><strong>${repository[i].name}</strong> (height: ${repository[i].height})<br></p>`);
+    document.write(`<p><strong>${pokemon.name}</strong> (height: ${pokemon.height})<br></p>`);
   }
-}
+})
+
