@@ -50,12 +50,19 @@ var pokemonRepository = (function () {
 
   function addListItem(pokemon) {
 
-    var $newItem = document.createElement('li');
+
+
+
+    var $pokemonGridContainer = document.querySelector('.pokemon-grid__container')
+    var $newGridItem = document.createElement('div');
     var $newButton = document.createElement('button');
     $newButton.classList.add('main-button');
     $newButton.innerText = `${pokemon}`;
-    $newItem.appendChild($newButton);
-    $pokemonList.appendChild($newItem);
+    $newGridItem.classList.add('pokemon-grid__item')
+    $newGridItem.appendChild($newButton)
+    $pokemonGridContainer.appendChild($newGridItem);
+
+
   }
 
   return {
@@ -80,7 +87,6 @@ var $pokemonList = document.querySelector('.pokemon-list')
 
 pokemonRepository.getAll.forEach(function (pokemon) {
   pokemonRepository.addListItem(pokemon.name);
-
 })
 
 
@@ -88,3 +94,21 @@ document.write("<br><br>" +
   pokemonRepository.searchPokemon('Detective Pikachu')
 )
 
+
+
+
+
+
+//OLD ADD LIST FUNCTION USING UL
+
+/*
+
+var $newItem = document.createElement('li');
+    var $newButton = document.createElement('button');
+    $newButton.classList.add('main-button');
+    $newButton.innerText = `${pokemon}`;
+    $newItem.appendChild($newButton);
+    $pokemonList.appendChild($newItem);
+
+
+*/
