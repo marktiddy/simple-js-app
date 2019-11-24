@@ -46,10 +46,23 @@ var pokemonRepository = (function () {
     }
   }
 
+  //Adding to the list function
+
+  function addListItem(pokemon) {
+
+    var $newItem = document.createElement('li');
+    var $newButton = document.createElement('button');
+    $newButton.classList.add('main-button');
+    $newButton.innerText = `${pokemon}`;
+    $newItem.appendChild($newButton);
+    $pokemonList.appendChild($newItem);
+  }
+
   return {
     add: add,
     getAll: getAll(),
-    searchPokemon: searchPokemon
+    searchPokemon: searchPokemon,
+    addListItem: addListItem
   }
 })();
 
@@ -62,17 +75,16 @@ pokemonRepository.add({
 });
 
 //Let's display our pokemon
+
+var $pokemonList = document.querySelector('.pokemon-list')
+
 pokemonRepository.getAll.forEach(function (pokemon) {
-  if (pokemon.height > 5) {
-    document.write(`<p><strong>${pokemon.name}</strong> (height: ${pokemon.height}) - <i>WOW! That's a tall Pokémon</i><br></p>`);
-  } else {
-    document.write(`<p><strong>${pokemon.name}</strong> (height: ${pokemon.height})<br></p>`);
-  }
+  pokemonRepository.addListItem(pokemon.name);
+
 })
 
 
 document.write("<br><br>" +
   pokemonRepository.searchPokemon('Detective Pikachu')
 )
-
 

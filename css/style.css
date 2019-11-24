@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #4772F4;
+  --primary-color: #134992;
   --secondary-color: #FFF611;
 }
 
@@ -7,7 +7,7 @@ body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   padding: 10px;
-  text-align: center;
+  text-align: left;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -21,5 +21,48 @@ h2 {
 
 p {
   font-weight: 200;
+}
+
+.pokemon-list {
+  list-style: none;
+
+}
+
+
+
+.main-button {
+  padding: 15px;
+  margin: 10px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border-radius: 5%;
+  font-weight: 300;
+}
+
+.main-button:hover, .main-button:focus {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+
+@media all and (min-width: 500px) and (max-width: 650px) {
+h1 {
+  font-size: 14px;
+}
+}
+
+@media all and (max-width: 750px) {
+h1 {
+  text-align: center;
+}
+
+h2 {
+  padding-left: 15px;
+}
+
+.pokemon-list {
+  text-align: left;
+}
+
 }
 
