@@ -49,10 +49,6 @@ var pokemonRepository = (function () {
   //Adding to the list function
 
   function addListItem(pokemon) {
-
-
-
-
     var $pokemonGridContainer = document.querySelector('.pokemon-grid__container')
     var $newGridItem = document.createElement('div');
     var $newButton = document.createElement('button');
@@ -61,7 +57,13 @@ var pokemonRepository = (function () {
     $newGridItem.classList.add('pokemon-grid__item')
     $newGridItem.appendChild($newButton)
     $pokemonGridContainer.appendChild($newGridItem);
+    $newButton.addEventListener('click', showDetails);
 
+  }
+
+  //Event Listener Function
+  function showDetails(pokemon) {
+    console.log(pokemon);
 
   }
 
