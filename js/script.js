@@ -40,7 +40,7 @@ var pokemonRepository = (function () {
     )
 
     if (resultsOfSearch.length != 0) {
-      return `We have a result! We found a ${resultsOfSearch[0].name}`;
+      return resultsOfSearch[0].name;
     } else {
       return `We didn't find that one, guess you still need to catch 'em!`
     }
@@ -57,14 +57,21 @@ var pokemonRepository = (function () {
     $newGridItem.classList.add('pokemon-grid__item')
     $newGridItem.appendChild($newButton)
     $pokemonGridContainer.appendChild($newGridItem);
-    $newButton.addEventListener('click', showDetails);
 
+    //Event listener
+    //$newButton.addEventListener('click', showDetails);
+    implementListener($newButton, showDetails);
+  }
+
+  //Function to assign event listener
+  function implementListener(buttonRef, objRef) {
+    buttonRef.addEventListener('click', objRef);
   }
 
   //Event Listener Function
   function showDetails(pokemon) {
-    console.log(pokemon);
-
+    console.log(event.target.innerText);
+    console.log(pokemonRepository.searchPokemon(event.target.innerText));
   }
 
   return {
