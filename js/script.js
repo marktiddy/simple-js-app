@@ -1,25 +1,49 @@
 var pokemonRepository = (function () {
   //The pokemon repository
-  var repository = [
-    {
-      name: "Bulbasaur",
-      height: 7,
-      types: ['grass', 'poison']
-    },
-    {
-      name: "Detective Pikachu",
-      height: 3,
-      types: ['coffee break', 'corkscrew punch']
-    }
-  ];
+  var repository = [];
+  var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+
+  //Functions to load and process data from API
+
+  function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        var pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (error) {
+      console.error(error);
+    })
+  }
+
+  //Function to load the details
+  function loadDetails(item) {
+    var url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now we add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = Object.keys(details.types);
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
+
 
   //Functions to return
 
   //Add pokemon function
   function add(pokemon) {
-    if ((typeof pokemon == 'object') && (pokemon.name != undefined && pokemon.height != undefined && pokemon.types != undefined)) {
+    if ((typeof pokemon == 'object') && (pokemon.name != undefined)) {
       repository.push(pokemon);
-      console.log(`${pokemon.name} added`)
     } else {
       console.log('pokemon input is not an object')
     }
@@ -28,12 +52,13 @@ var pokemonRepository = (function () {
   //Get all Pokemon Function
   function getAll() {
     return repository;
+    console.log(repository)
   }
 
   //Search Function
   function searchPokemon(searchTerm) {
 
-    var resultsOfSearch = pokemonRepository.getAll.filter(
+    var resultsOfSearch = getAll().filter(
       obj => {
         return obj.name == searchTerm;
       }
@@ -53,14 +78,16 @@ var pokemonRepository = (function () {
     var $newGridItem = document.createElement('div');
     var $newButton = document.createElement('button');
     $newButton.classList.add('main-button');
-    $newButton.innerText = `${pokemon}`;
+    $newButton.innerText = `${pokemon.name}`;
+    $newButton.classList.add('capitalize-letters');
     $newGridItem.classList.add('pokemon-grid__item')
     $newGridItem.appendChild($newButton)
     $pokemonGridContainer.appendChild($newGridItem);
 
     //Event listener
-    //$newButton.addEventListener('click', showDetails);
-    implementListener($newButton, showDetails);
+    implementListener($newButton, function () {
+      showDetails(pokemon);
+    });
   }
 
   //Function to assign event listener
@@ -70,54 +97,37 @@ var pokemonRepository = (function () {
 
   //Event Listener Function
   function showDetails(pokemon) {
-    console.log(event.target.innerText);
-    console.log(pokemonRepository.searchPokemon(event.target.innerText));
+    loadDetails(pokemon)
+    console.log(pokemon)
   }
 
   return {
     add: add,
-    getAll: getAll(),
+    getAll: getAll,
     searchPokemon: searchPokemon,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails
   }
 })();
 
-
-//Testing the add function
-pokemonRepository.add({
-  name: 'Charizard',
-  height: 2,
-  types: ['fire', 'water']
-});
-
-//Let's display our pokemon
-
-var $pokemonList = document.querySelector('.pokemon-list')
-
-pokemonRepository.getAll.forEach(function (pokemon) {
-  pokemonRepository.addListItem(pokemon.name);
+//Let's add our pokemon from the api
+pokemonRepository.loadList().then(function () {
+  //Data has loaded from API
+  pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  }
+  )
 })
 
 
+
+//Let's display our pokemon
+// pokemonRepository.getAll.forEach(function (pokemon) {
+//   pokemonRepository.addListItem(pokemon.name)
+// });
+
+
 document.write("<br><br>" +
-  pokemonRepository.searchPokemon('Detective Pikachu')
+  pokemonRepository.searchPokemon('krabby')
 )
-
-
-
-
-
-
-//OLD ADD LIST FUNCTION USING UL
-
-/*
-
-var $newItem = document.createElement('li');
-    var $newButton = document.createElement('button');
-    $newButton.classList.add('main-button');
-    $newButton.innerText = `${pokemon}`;
-    $newItem.appendChild($newButton);
-    $pokemonList.appendChild($newItem);
-
-
-*/

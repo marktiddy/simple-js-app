@@ -52,14 +52,19 @@ p {
  justify-items: stretch;
  align-items: flex-start;
  text-align: center;
+ text-transform: capitalize;
 }
 
 .pokemon-grid__item {
   margin: 15px;
   padding: 10px;
-  border: 1px solid var(--secondary-color)
+  border: 1px solid var(--secondary-color);
+  text-transform: capitalize;
 }
 
+.capitalize-letters {
+  text-transform: capitalize;
+}
 
 @media all and (min-width: 500px) and (max-width: 650px) {
 h1 {
