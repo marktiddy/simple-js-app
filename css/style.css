@@ -1,7 +1,7 @@
 :root {
   --primary-color: #282828;
   --secondary-color: #ffffff;
-  --third-color: #134992;
+  --third-color: #ffcb05;
 }
 
 body {
@@ -17,6 +17,7 @@ header {
   padding: 20px;
   background-color: var(--third-color);
   border-bottom: 2px solid white;
+  color: var(--primary-color);
 }
 
 h1 {
