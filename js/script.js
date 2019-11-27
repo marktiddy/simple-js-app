@@ -1,6 +1,7 @@
 var pokemonRepository = (function () {
   //The pokemon repository
   var repository = [];
+
   var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   //Functions to load and process data from API
@@ -44,6 +45,7 @@ var pokemonRepository = (function () {
   function add(pokemon) {
     if ((typeof pokemon == 'object') && (pokemon.name != undefined)) {
       repository.push(pokemon);
+
     } else {
       console.log('pokemon input is not an object')
     }
@@ -51,8 +53,9 @@ var pokemonRepository = (function () {
 
   //Get all Pokemon Function
   function getAll() {
+
     return repository;
-    console.log(repository)
+
   }
 
   //Search Function
@@ -60,16 +63,24 @@ var pokemonRepository = (function () {
 
     var resultsOfSearch = getAll().filter(
       obj => {
-        return obj.name == searchTerm;
+        return obj.name == "krabby";
       }
     )
 
     if (resultsOfSearch.length != 0) {
-      return resultsOfSearch[0].name;
+
+      var $header = document.querySelector('h1');
+      var $resultElement = document.createElement('h2');
+      $resultElement.innerText = (`Search Results: We found ${resultsOfSearch[0].name}!`);
+      $resultElement.classList.add('search-results');
+      $header.after($resultElement);
+
     } else {
-      return `We didn't find that one, guess you still need to catch 'em!`
+      document.write('<h2>We didn\'t find that one</h2>')
+
     }
   }
+
 
   //Adding to the list function
 
@@ -107,7 +118,7 @@ var pokemonRepository = (function () {
     searchPokemon: searchPokemon,
     addListItem: addListItem,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
   }
 })();
 
@@ -116,18 +127,18 @@ pokemonRepository.loadList().then(function () {
   //Data has loaded from API
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
+    var randomObjectOfPokemon = pokemonRepository.getAll();
+    //console.log(randomObjectOfPokemon[1])
   }
   )
 })
 
 
 
-//Let's display our pokemon
-// pokemonRepository.getAll.forEach(function (pokemon) {
-//   pokemonRepository.addListItem(pokemon.name)
-// });
 
-
-document.write("<br><br>" +
+setTimeout(function () {
+  var nofunclist = pokemonRepository.getAll();
+  //console.log(nofunclist[0])
   pokemonRepository.searchPokemon('krabby')
-)
+}, 3000);
+
