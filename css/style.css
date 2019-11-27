@@ -1,25 +1,138 @@
 :root {
-  --primary-color: #4772F4;
-  --secondary-color: #FFF611;
+  --primary-color: #282828;
+  --secondary-color: #ffffff;
+  --third-color: #134992;
 }
 
 body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   padding: 10px;
-  text-align: center;
+  text-align: left;
   font-family: 'Montserrat', sans-serif;
+}
+
+header {
+  margin: -30px -30px 0px -30px;
+  padding: 20px;
+  background-color: var(--third-color);
+  border-bottom: 2px solid white;
 }
 
 h1 {
   text-decoration: underline;
+  text-align: center;
 }
 
 h2 {
   font-weight: 100;
+  text-align: center;
 }
 
 p {
   font-weight: 200;
+}
+
+.pokemon-list {
+  list-style: none;
+
+}
+
+.main-button {
+  padding: 20px;
+  margin: 10px;
+  color: white;
+  font-weight: 300;
+  background-image: url("../img/pokeball.jpg");
+  background-position: center;
+  border: 5px solid black;
+  height: 200px;
+  width:200px;
+  border-radius: 90%;
+  box-shadow: 2px 2px 5px #181818;
+}
+
+.main-button:hover, .main-button:focus {
+  opacity: 0.6;
+  animation-duration: 2s;
+  animation-name: pokeballs;
+  cursor: pointer;
+}
+
+.pokemon-grid__container {
+  display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ justify-items: stretch;
+ align-items: flex-start;
+ text-align: center;
+ text-transform: capitalize;
+}
+
+.pokemon-grid__item {
+  margin: 0px;
+  padding: 0px;
+  text-transform: capitalize;
+  
+  
+}
+
+.capitalize-letters {
+  text-transform: uppercase;
+}
+
+.search-results {
+  font-style: italic;
+}
+
+/*CSS Animation */
+@keyframes pokeballs {
+  from {
+    transform: rotate(0deg)
+  }
+
+  30% {
+    transform: rotate(15deg);
+    width: 205px;
+    height: 205px;
+  }
+
+  60% {
+    transform: rotate(-15deg);
+    width: 205px;
+    height: 205px;
+  }
+
+  
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Mobile Optimisation */
+
+@media all and (min-width: 500px) and (max-width: 650px) {
+h1 {
+  font-size: 14px;
+}
+}
+
+@media all and (max-width: 750px) {
+h1 {
+  text-align: center;
+}
+
+h2 {
+  padding-left: 15px;
+}
+
+.pokemon-list {
+  text-align: left;
+}
+
+.pokemon-grid__container {
+ grid-template-columns: 1fr;
+}
+
 }
 

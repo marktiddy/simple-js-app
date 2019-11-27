@@ -1,21 +1,144 @@
-//Array that will eventually store Pokémon
-var repository = [
-  {
-    name: "Bulbasaur",
-    height: 7,
-    types: ['grass', 'poison']
-  },
-  {
-    name: "Detective Pikachu",
-    height: 3,
-    types: ['coffee break', 'corkscrew punch']
-  }
-];
+var pokemonRepository = (function () {
+  //The pokemon repository
+  var repository = [];
 
-for (var i = 0; i <= repository.length; i++) {
-  if (repository[i].height > 5) {
-    document.write(`<p><strong>${repository[i].name}</strong> (height: ${repository[i].height}) - <i>WOW! That's a tall Pokémon</i><br></p>`);
-  } else {
-    document.write(`<p><strong>${repository[i].name}</strong> (height: ${repository[i].height})<br></p>`);
+  var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+
+  //Functions to load and process data from API
+
+  function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        var pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (error) {
+      console.error(error);
+    })
   }
-}
+
+  //Function to load the details
+  function loadDetails(item) {
+    var url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now we add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = Object.keys(details.types);
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
+
+
+  //Functions to return
+
+  //Add pokemon function
+  function add(pokemon) {
+    if ((typeof pokemon == 'object') && (pokemon.name != undefined)) {
+      repository.push(pokemon);
+
+    } else {
+      console.log('pokemon input is not an object')
+    }
+  }
+
+  //Get all Pokemon Function
+  function getAll() {
+
+    return repository;
+
+  }
+
+  //Search Function
+  function searchPokemon(searchTerm) {
+
+    var resultsOfSearch = getAll().filter(
+      obj => {
+        return obj.name == "krabby";
+      }
+    )
+
+    if (resultsOfSearch.length != 0) {
+
+      var $header = document.querySelector('h1');
+      var $resultElement = document.createElement('h2');
+      $resultElement.innerText = (`Search Results: We found ${resultsOfSearch[0].name}!`);
+      $resultElement.classList.add('search-results');
+      $header.after($resultElement);
+
+    } else {
+      document.write('<h2>We didn\'t find that one</h2>')
+
+    }
+  }
+
+
+  //Adding to the list function
+
+  function addListItem(pokemon) {
+    var $pokemonGridContainer = document.querySelector('.pokemon-grid__container')
+    var $newGridItem = document.createElement('div');
+    var $newButton = document.createElement('button');
+    $newButton.classList.add('main-button');
+    $newButton.innerText = `${pokemon.name}`;
+    $newButton.classList.add('capitalize-letters');
+    $newGridItem.classList.add('pokemon-grid__item')
+    $newGridItem.appendChild($newButton)
+    $pokemonGridContainer.appendChild($newGridItem);
+
+    //Event listener
+    implementListener($newButton, function () {
+      showDetails(pokemon);
+    });
+  }
+
+  //Function to assign event listener
+  function implementListener(buttonRef, objRef) {
+    buttonRef.addEventListener('click', objRef);
+  }
+
+  //Event Listener Function
+  function showDetails(pokemon) {
+    loadDetails(pokemon)
+    console.log(pokemon)
+  }
+
+  return {
+    add: add,
+    getAll: getAll,
+    searchPokemon: searchPokemon,
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+  }
+})();
+
+//Let's add our pokemon from the api
+pokemonRepository.loadList().then(function () {
+  //Data has loaded from API
+  pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+    var randomObjectOfPokemon = pokemonRepository.getAll();
+    //console.log(randomObjectOfPokemon[1])
+  }
+  )
+})
+
+
+
+
+setTimeout(function () {
+  var nofunclist = pokemonRepository.getAll();
+  //console.log(nofunclist[0])
+  pokemonRepository.searchPokemon('krabby')
+}, 3000);
+
