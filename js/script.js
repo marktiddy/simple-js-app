@@ -63,21 +63,53 @@ var pokemonRepository = (function () {
 
     var resultsOfSearch = getAll().filter(
       obj => {
-        return obj.name == "krabby";
+        return obj.name == searchTerm;
       }
     )
 
     if (resultsOfSearch.length != 0) {
+      var $grid = document.querySelector('.pokemon-grid__container')
+      $grid.innerHTML = "";
+      addListItem(resultsOfSearch[0])
 
-      var $header = document.querySelector('h1');
-      var $resultElement = document.createElement('h2');
-      $resultElement.innerText = (`Search Results: We found ${resultsOfSearch[0].name}!`);
-      $resultElement.classList.add('search-results');
-      $header.after($resultElement);
+      var doesFormExist = document.querySelector('.clear-form')
+
+      if (doesFormExist == null) {
+        var $header = document.querySelector('header');
+        var $resultElement = document.createElement('h2');
+
+        var $clearButton = document.createElement('button');
+        var $clearForm = document.createElement('form');
+
+        $clearForm
+        $clearButton.addEventListener('click', function () {
+          $grid.innerHTML = "";
+          var pokemonList = getAll();
+          pokemonList.forEach(function (pokemon) {
+            event.defaultPrevented()
+            addListItem(pokemon);
+          })
+
+        })
+
+        $clearButton.innerText = "Clear Results";
+        $resultElement.innerText = (`Search Results`);
+        $resultElement.classList.add('search-results');
+        $clearButton.classList.add('clear-button')
+        $clearForm.classList.add('clear-form');
+
+        $header.after($resultElement);
+        $resultElement.after($clearForm);
+        $clearForm.appendChild($clearButton);
+
+      }
 
     } else {
-      document.write('<h2>We didn\'t find that one</h2>')
-
+      var $header = document.querySelector('header');
+      var $resultElement = document.createElement('h2');
+      $resultElement.innerText = (`We didn't find that one`);
+      $resultElement.classList.add('search-results');
+      $header.after($resultElement);
     }
   }
 
@@ -85,7 +117,7 @@ var pokemonRepository = (function () {
   //Adding to the list function
 
   function addListItem(pokemon) {
-    var $pokemonGridContainer = document.querySelector('.pokemon-grid__container')
+    var $pokemonGridContainer = document.querySelector('.pokemon-grid__container');
     var $newGridItem = document.createElement('div');
     var $newButton = document.createElement('button');
     $newButton.classList.add('main-button');
@@ -127,18 +159,23 @@ pokemonRepository.loadList().then(function () {
   //Data has loaded from API
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
-    var randomObjectOfPokemon = pokemonRepository.getAll();
-    //console.log(randomObjectOfPokemon[1])
   }
   )
 })
 
+//Add event listeners to search form
+var $searchForm = document.querySelector('#search-form');
+var $searchField = document.querySelector('.search-field');
 
+$searchForm.addEventListener('click', function () {
+  if ($searchField.value === "Search for a Pokémon") {
+    $searchField.value = "";
+  }
 
+})
 
-setTimeout(function () {
-  var nofunclist = pokemonRepository.getAll();
-  //console.log(nofunclist[0])
-  pokemonRepository.searchPokemon('krabby')
-}, 3000);
-
+$searchForm.addEventListener('submit', function () {
+  event.preventDefault();
+  console.log($searchField.value);
+  pokemonRepository.searchPokemon($searchField.value.toLowerCase());
+})
