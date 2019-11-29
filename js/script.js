@@ -58,6 +58,45 @@ var pokemonRepository = (function () {
 
   }
 
+  //Search Control Function
+  function showSearchControls(text) {
+    var textToInsert = text;
+    //Check if this form already exists
+    var doesFormExist = document.querySelector('.clear-form')
+
+    //If form doesn't exist we create it 
+    if (doesFormExist == null) {
+      var $header = document.querySelector('header');
+      var $resultElement = document.createElement('p');
+      var $clearButton = document.createElement('button');
+      var $clearForm = document.createElement('form');
+
+      $resultElement.classList.add('results-title')
+      $clearButton.addEventListener('click', function () {
+        $grid.innerHTML = "";
+        var pokemonList = getAll();
+        pokemonList.forEach(function (pokemon) {
+          event.defaultPrevented()
+          addListItem(pokemon);
+        })
+
+      })
+
+      $clearButton.innerText = "Clear Results";
+      $resultElement.innerText = (textToInsert);
+      $clearButton.classList.add('clear-button')
+      $clearForm.classList.add('clear-form');
+
+      $header.after($resultElement);
+      $resultElement.after($clearForm);
+      $clearForm.appendChild($clearButton);
+    } else {
+
+      var $resultElement = document.querySelector('.results-title');
+      $resultElement.innerText = (`${textToInsert}`);
+    }
+  }
+
   //Search Function
   function searchPokemon(searchTerm) {
 
@@ -67,49 +106,16 @@ var pokemonRepository = (function () {
       }
     )
 
+    //Select the grid
+    var $grid = document.querySelector('.pokemon-grid__container')
+
     if (resultsOfSearch.length != 0) {
-      var $grid = document.querySelector('.pokemon-grid__container')
       $grid.innerHTML = "";
       addListItem(resultsOfSearch[0])
-
-      var doesFormExist = document.querySelector('.clear-form')
-
-      if (doesFormExist == null) {
-        var $header = document.querySelector('header');
-        var $resultElement = document.createElement('h2');
-
-        var $clearButton = document.createElement('button');
-        var $clearForm = document.createElement('form');
-
-        $clearForm
-        $clearButton.addEventListener('click', function () {
-          $grid.innerHTML = "";
-          var pokemonList = getAll();
-          pokemonList.forEach(function (pokemon) {
-            event.defaultPrevented()
-            addListItem(pokemon);
-          })
-
-        })
-
-        $clearButton.innerText = "Clear Results";
-        $resultElement.innerText = (`Search Results`);
-        $resultElement.classList.add('search-results');
-        $clearButton.classList.add('clear-button')
-        $clearForm.classList.add('clear-form');
-
-        $header.after($resultElement);
-        $resultElement.after($clearForm);
-        $clearForm.appendChild($clearButton);
-
-      }
-
+      showSearchControls('Search Results');
     } else {
-      var $header = document.querySelector('header');
-      var $resultElement = document.createElement('h2');
-      $resultElement.innerText = (`We didn't find that one`);
-      $resultElement.classList.add('search-results');
-      $header.after($resultElement);
+      $grid.innerHTML = "";
+      showSearchControls('No Results Found');
     }
   }
 
@@ -176,6 +182,5 @@ $searchForm.addEventListener('click', function () {
 
 $searchForm.addEventListener('submit', function () {
   event.preventDefault();
-  console.log($searchField.value);
   pokemonRepository.searchPokemon($searchField.value.toLowerCase());
 })
