@@ -1,7 +1,8 @@
 :root {
   --primary-color: #282828;
   --secondary-color: #ffffff;
-  --third-color: #134992;
+  --third-color: #ffcb05;
+  --blue-color: #1E4F8B;
 }
 
 body {
@@ -16,17 +17,29 @@ header {
   margin: -30px -30px 0px -30px;
   padding: 20px;
   background-color: var(--third-color);
-  border-bottom: 2px solid white;
+  color: var(--primary-color);
+  border-bottom-left-radius:30%;
+  border-bottom-right-radius:30%;
 }
 
 h1 {
-  text-decoration: underline;
+  font-weight: 600;
   text-align: center;
+  font-size: 40px;
 }
 
 h2 {
   font-weight: 100;
   text-align: center;
+}
+
+h3 {
+  font-weight: 500;
+  text-align: left;
+  color: var(--third-color);
+  font-size: 16px;
+  text-transform: capitalize;
+  margin-top: -05px;
 }
 
 p {
@@ -61,7 +74,7 @@ p {
 
 .pokemon-grid__container {
   display: grid;
- grid-template-columns: 1fr 1fr 1fr;
+ grid-template-columns: 1fr 1fr 1fr 1fr;
  justify-items: stretch;
  align-items: flex-start;
  text-align: center;
@@ -80,9 +93,111 @@ p {
   text-transform: uppercase;
 }
 
-.search-results {
-  font-style: italic;
+
+#search-form {
+  text-align: center;
 }
+
+.search-field {
+padding: 10px;
+margin-right: -5px;
+font-weight: 300;
+
+
+}
+
+.search-submit {
+  color: var(--third-color);
+  background-color: var(--primary-color);
+  padding: 10px;
+  box-shadow: none;
+}
+
+.search-submit:hover, .search-submit:focus, .clear-button:hover, .clear-button:focus {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.clear-form {
+  text-align: center;
+}
+
+.clear-button {
+  text-align: center;
+  color: var(--primary-color);
+  background-color: var(--third-color);
+  padding: 10px;
+  box-shadow: none;
+}
+
+.results-title {
+  color: white;
+  font-size: 24px;
+  text-align: center;
+}
+
+/* Modal CSS */
+#modal-container {
+display: none;
+}
+
+#modal-container.is-visible {
+  position: fixed;
+padding: 20px;
+box-sizing: border-box;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.5);
+
+/* show it above content */
+z-index: 999;
+
+/* allow scrolling on short screens */
+overflow: auto;
+
+/* Lets center it */
+
+text-align: center;
+display: grid;
+}
+
+.modal {
+margin: auto;
+display: inline-block;
+box-sizing: border-box;
+background: var(--blue-color);
+padding: 15px;
+width: 35%;
+max-width: 700px;
+text-align: center;
+border: 6px solid var(--third-color);
+border-radius: 2%;
+}
+
+.modal img {
+  width: 60%;
+}
+
+.modal-close {
+  border-radius: 50%;
+  text-align: center;
+  background-color: var(--third-color);
+  color: var(--primary-color);
+  padding-bottom: 3.5px;
+  border: 1px solid black;
+  float: right;
+  -webkit-appearance: none;
+  margin-top: -10px;
+  margin-right: -10px;
+}
+
+.modal-close:hover, .modal-close:focus {
+  opacity: 70%;
+}
+
+
 
 /*CSS Animation */
 @keyframes pokeballs {
@@ -115,11 +230,16 @@ p {
 h1 {
   font-size: 14px;
 }
+
+.modal {
+  width: 45%;
+  }
 }
 
 @media all and (max-width: 750px) {
 h1 {
   text-align: center;
+  font-size: 25px;
 }
 
 h2 {
@@ -133,6 +253,9 @@ h2 {
 .pokemon-grid__container {
  grid-template-columns: 1fr;
 }
+.modal {
+  width: 65%;
+  }
 
 }
 

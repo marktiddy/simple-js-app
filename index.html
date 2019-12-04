@@ -7,13 +7,16 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <title>Simple JS App</title>
+  <title>The Pokémon DB</title>
 </head>
 
 <body>
   <header>
-    <h1>Gotta catch 'em all...</h1>
-    <h2>So far you've caught...</h2>
+    <h1>THE POKÉMON DB</h1>
+    <form id="search-form">
+      <input type="text" name="searchterm" class="search-field" value="Search for a Pokémon" size="30">
+      <input type="submit" value="Search" class="search-submit">
+    </form>
   </header>
   <br>
 
@@ -25,8 +28,20 @@
 
 
   </div>
+  <!-- HTML for Pokemon Modal-->
+  <div id="modal-container">
+    <div class="modal">
+      <button class="modal-close">x</button>
+      <h2>Pokemon Name</h2>
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png" alt="Pokemon Name">
+      <p>Height: 7</p>
+      <p>Types: 0 & 1</p>
+    </div>
+  </div>
+
+
   <script src="js/polyfill.min.js"></script>
-  <!--<script src="js/fetch.js"></script>-->
+  <script src="js/fetch.umd.js"></script>
   <script src="js/script.js"></script>
 </body>
 
