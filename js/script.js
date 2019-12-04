@@ -140,18 +140,52 @@ var pokemonRepository = (function () {
 
   //Event Listener Function
   function showDetails(pokemon) {
-    loadDetails(pokemon);
-    displayDetails(pokemon);
+    loadDetails(pokemon).then(function () {
+      displayDetails(pokemon)
+    })
   }
 
   //Function to display the Pokemon Details on screen
   function displayDetails(pokemon) {
     console.log(pokemon);
-    //Get our container as a variable
-    var $modalContainer = document.querySelector('.modal-container');
-    var $modal = document.querySelector('.modal')
-    console.log($modalContainer);
 
+    //Get our container as a variable
+    var $modalContainer = document.querySelector('#modal-container');
+    //Clear the container
+    $modalContainer.innerHTML = '';
+    //Create the modal element
+    var $pokemonCard = document.createElement('div');
+    $pokemonCard.classList.add('modal');
+
+    //Create the button
+    var $closeButton = document.createElement('button');
+    $closeButton.innerText = 'x';
+    $closeButton.classList.add('modal-close');
+    $pokemonCard.appendChild($closeButton);
+
+    //Create the heading text
+    var $headerText = document.createElement('h3');
+    $headerText.innerText = pokemon.name;
+    $pokemonCard.appendChild($headerText);
+
+    //Show the image
+    var $pokemonImage = document.createElement('img');
+    $pokemonImage.src = pokemon.imageUrl;
+    $pokemonImage.alt = pokemon.name;
+    $pokemonCard.appendChild($pokemonImage);
+
+    //Show some information
+    var $pokemonHeight = document.createElement('p');
+    $pokemonHeight.innerText = 'Height: ' + pokemon.height;
+    $pokemonCard.appendChild($pokemonHeight)
+    $modalContainer.appendChild($pokemonCard);
+
+    var $pokemonTypes = document.createElement('p');
+    $pokemonTypes.innerText = "Types: " + pokemon.types;
+    $pokemonCard.appendChild($pokemonTypes);
+
+    //Make the modal visible
+    $modalContainer.classList.add('is-visible');
   }
 
   return {
@@ -161,6 +195,7 @@ var pokemonRepository = (function () {
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails,
+    displayDetails: displayDetails,
   }
 })();
 

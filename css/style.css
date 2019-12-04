@@ -33,6 +33,15 @@ h2 {
   text-align: center;
 }
 
+h3 {
+  font-weight: 500;
+  text-align: left;
+  color: var(--third-color);
+  font-size: 16px;
+  text-transform: capitalize;
+  margin-top: -05px;
+}
+
 p {
   font-weight: 200;
 }
@@ -129,7 +138,11 @@ font-weight: 300;
 
 /* Modal CSS */
 #modal-container {
-position: fixed;
+display: none;
+}
+
+#modal-container.is-visible {
+  position: fixed;
 padding: 20px;
 box-sizing: border-box;
 top: 0;
@@ -145,8 +158,9 @@ z-index: 999;
 overflow: auto;
 
 /* Lets center it */
-display: none;
+
 text-align: center;
+display: grid;
 }
 
 .modal {
@@ -163,7 +177,7 @@ border-radius: 2%;
 }
 
 .modal img {
-  width: 50%;
+  width: 60%;
 }
 
 .modal-close {
@@ -183,9 +197,7 @@ border-radius: 2%;
   opacity: 70%;
 }
 
-.modal-visible {
-  display: grid;
-}
+
 
 /*CSS Animation */
 @keyframes pokeballs {
