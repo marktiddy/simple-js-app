@@ -239,6 +239,7 @@ h1 {
 @media all and (max-width: 750px) {
 h1 {
   text-align: center;
+  font-size: 25px;
 }
 
 h2 {
