@@ -5,7 +5,6 @@ var pokemonRepository = (function () {
   var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   //Functions to load and process data from API
-
   function loadList() {
     return fetch(apiUrl).then(function (response) {
       return response.json();
@@ -37,15 +36,12 @@ var pokemonRepository = (function () {
     });
   }
 
-
-
   //Functions to return
 
   //Add pokemon function
   function add(pokemon) {
     if ((typeof pokemon == 'object') && (pokemon.name != undefined)) {
       repository.push(pokemon);
-
     } else {
       console.log('pokemon input is not an object')
     }
@@ -53,9 +49,7 @@ var pokemonRepository = (function () {
 
   //Get all Pokemon Function
   function getAll() {
-
     return repository;
-
   }
 
   //Search Control Function
@@ -146,8 +140,18 @@ var pokemonRepository = (function () {
 
   //Event Listener Function
   function showDetails(pokemon) {
-    loadDetails(pokemon)
-    console.log(pokemon)
+    loadDetails(pokemon);
+    displayDetails(pokemon);
+  }
+
+  //Function to display the Pokemon Details on screen
+  function displayDetails(pokemon) {
+    console.log(pokemon);
+    //Get our container as a variable
+    var $modalContainer = document.querySelector('.modal-container');
+    var $modal = document.querySelector('.modal')
+    console.log($modalContainer);
+
   }
 
   return {
