@@ -162,6 +162,10 @@ var pokemonRepository = (function () {
     $closeButton.innerText = 'x';
     $closeButton.classList.add('modal-close');
     $pokemonCard.appendChild($closeButton);
+    //Button event listener
+    $closeButton.addEventListener('click', () => {
+      hideModal();
+    })
 
     //Create the heading text
     var $headerText = document.createElement('h3');
@@ -184,8 +188,27 @@ var pokemonRepository = (function () {
     $pokemonTypes.innerText = "Types: " + pokemon.types;
     $pokemonCard.appendChild($pokemonTypes);
 
+    //Add our key press and other event listeners
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && $modalContainer.classList.contains('is-visible')) {
+        hideModal();
+      }
+    });
+
+    $modalContainer.addEventListener('click', (e) => {
+      var target = e.target;
+      if (target === $modalContainer) {
+        hideModal();
+      }
+    });
+
     //Make the modal visible
     $modalContainer.classList.add('is-visible');
+  }
+
+  function hideModal() {
+    var $pokemonContainer = document.querySelector('#modal-container');
+    $pokemonContainer.classList.remove('is-visible');
   }
 
   return {
