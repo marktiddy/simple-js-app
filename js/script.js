@@ -27,10 +27,11 @@ var pokemonRepository = (function () {
     return fetch(url).then(function (response) {
       return response.json();
     }).then(function (details) {
+      console.log(details)
       // Now we add the details to the item
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
-      item.types = Object.keys(details.types);
+      item.types = details.types;
     }).catch(function (e) {
       console.error(e);
     });
@@ -184,8 +185,13 @@ var pokemonRepository = (function () {
     $pokemonCard.appendChild($pokemonHeight)
     $modalContainer.appendChild($pokemonCard);
 
+    var typesArray = [];
+    for (var i = 0; i < pokemon.types.length; i++) {
+      typesArray.push(" " + pokemon.types[i].type.name);
+    }
+
     var $pokemonTypes = document.createElement('p');
-    $pokemonTypes.innerText = "Types: " + pokemon.types;
+    $pokemonTypes.innerText = "Types: " + typesArray;
     $pokemonCard.appendChild($pokemonTypes);
 
     //Add our key press and other event listeners
