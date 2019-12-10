@@ -148,7 +148,6 @@ var pokemonRepository = (function () {
 
   //Function to display the Pokemon Details on screen
   function displayDetails(pokemon) {
-    console.log(pokemon);
 
     //Get our container as a variable
     var $modalContainer = document.querySelector('#modal-container');

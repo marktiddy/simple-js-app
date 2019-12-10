@@ -238,6 +238,9 @@ h1 {
 .modal {
   width: 45%;
   }
+
+
+
 }
 
 @media all and (max-width: 750px) {
@@ -258,7 +261,15 @@ h2 {
  grid-template-columns: 1fr;
 }
 .modal {
-  width: 65%;
+  width: 75%;
+  }
+
+  .modal h3 {
+    font-size: 20px;
+  }
+
+  .modal p {
+    font-size: 18px;
   }
 
 }
