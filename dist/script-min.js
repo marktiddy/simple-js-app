@@ -8,8 +8,7 @@ var pokemonRepository = (function() {
         return e.json();
       })
       .then(function(t) {
-        console.log(t),
-          (e.imageUrl = t.sprites.front_default),
+        (e.imageUrl = t.sprites.front_default),
           (e.height = t.height),
           (e.types = t.types);
       })
@@ -17,50 +16,48 @@ var pokemonRepository = (function() {
         console.error(e);
       });
   }
-  function o(t) {
-    "object" == typeof t && null != t.name
-      ? e.push(t)
-      : console.log("pokemon input is not an object");
+  function r(t) {
+    "object" == typeof t && null != t.name && e.push(t);
   }
-  function r() {
+  function o() {
     return e;
   }
   function a(e) {
     var t = e;
     if (null == document.querySelector(".clear-form")) {
       var n = document.querySelector("header"),
-        o = document.createElement("p"),
+        r = document.createElement("p"),
         a = document.createElement("button"),
         c = document.createElement("form");
-      o.classList.add("results-title"),
+      r.classList.add("results-title"),
         a.addEventListener("click", function() {
           ($grid.innerHTML = ""),
-            r().forEach(function(e) {
+            o().forEach(function(e) {
               event.defaultPrevented(), i(e);
             });
         }),
         (a.innerText = "Clear Results"),
-        (o.innerText = t),
+        (r.innerText = t),
         a.classList.add("clear-button"),
         c.classList.add("clear-form"),
-        n.after(o),
-        o.after(c),
+        n.after(r),
+        r.after(c),
         c.appendChild(a);
     } else {
-      (o = document.querySelector(".results-title")).innerText = `${t}`;
+      (r = document.querySelector(".results-title")).innerText = `${t}`;
     }
   }
   function i(e) {
     var t,
-      o = document.querySelector(".pokemon-grid__container"),
-      r = document.createElement("div"),
+      r = document.querySelector(".pokemon-grid__container"),
+      o = document.createElement("div"),
       a = document.createElement("button");
     a.classList.add("main-button"),
       (a.innerText = `${e.name}`),
       a.classList.add("capitalize-letters"),
-      r.classList.add("pokemon-grid__item"),
-      r.appendChild(a),
-      o.appendChild(r),
+      o.classList.add("pokemon-grid__item"),
+      o.appendChild(a),
+      r.appendChild(o),
       (t = function() {
         !(function(e) {
           n(e).then(function() {
@@ -75,15 +72,15 @@ var pokemonRepository = (function() {
     t.innerHTML = "";
     var n = document.createElement("div");
     n.classList.add("modal");
-    var o = document.createElement("button");
-    (o.innerText = "x"),
-      o.classList.add("modal-close"),
-      n.appendChild(o),
-      o.addEventListener("click", () => {
+    var r = document.createElement("button");
+    (r.innerText = "x"),
+      r.classList.add("modal-close"),
+      n.appendChild(r),
+      r.addEventListener("click", () => {
         l();
       });
-    var r = document.createElement("h3");
-    (r.innerText = e.name), n.appendChild(r);
+    var o = document.createElement("h3");
+    (o.innerText = e.name), n.appendChild(o);
     var a = document.createElement("img");
     (a.src = e.imageUrl), (a.alt = e.name), n.appendChild(a);
     var i = document.createElement("p");
@@ -105,10 +102,10 @@ var pokemonRepository = (function() {
     document.querySelector("#modal-container").classList.remove("is-visible");
   }
   return {
-    add: o,
-    getAll: r,
+    add: r,
+    getAll: o,
     searchPokemon: function(e) {
-      var t = r().filter(t => t.name == e),
+      var t = o().filter(t => t.name == e),
         n = document.querySelector(".pokemon-grid__container");
       0 != t.length
         ? ((n.innerHTML = ""), i(t[0]), a("Search Results"))
@@ -122,7 +119,7 @@ var pokemonRepository = (function() {
         })
         .then(function(e) {
           e.results.forEach(function(e) {
-            o({ name: e.name, detailsUrl: e.url });
+            r({ name: e.name, detailsUrl: e.url });
           });
         })
         .catch(function(e) {

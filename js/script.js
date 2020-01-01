@@ -32,7 +32,6 @@ var pokemonRepository = (function() {
         return response.json();
       })
       .then(function(details) {
-        console.log(details);
         // Now we add the details to the item
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
@@ -50,7 +49,7 @@ var pokemonRepository = (function() {
     if (typeof pokemon == "object" && pokemon.name != undefined) {
       repository.push(pokemon);
     } else {
-      console.log("pokemon input is not an object");
+      //      console.log("pokemon input is not an object");
     }
   }
 
